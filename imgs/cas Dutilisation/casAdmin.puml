@@ -11,9 +11,9 @@ package "Goals Tracker - Admin" {
   usecase "Gérer les étapes des objectifs" as UC4
 }
 
-Administrateur --> UC1
-Administrateur --> UC2
-Administrateur --> UC3
-Administrateur --> UC4
+Administrateur -- UC1
+Administrateur -- UC2
+Administrateur -- UC3
+Administrateur -- UC4
 
 @enduml
