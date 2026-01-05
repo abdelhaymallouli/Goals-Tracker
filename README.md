@@ -7,7 +7,8 @@ header: '📊 Goals Tracker Project'
 footer: 'Réalisé par Abdelhay Mallouli'
 ---
 
-# Goals Tracker Website (Suivi des Objectifs)
+# Projet technique 
+## Goals Tracker Website (Suivi des Objectifs)
 
 **Réalisé par :**  
 MALLOULI Abdelhay    
@@ -24,3 +25,5 @@ Ce projet technique a pour objectif d'appliquer les connaissances acquises et de
 
 
 ---
+
+# bosoins 
