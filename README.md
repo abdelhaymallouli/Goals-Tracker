@@ -30,31 +30,21 @@ M. ESSARRAJ Fouad
 
 # Analyse technique
 
----
 # Les technologies à utiliser
 
-## Front-End
-- Blade : Templates réutilisables (components, layouts)  
-- Tailwind CSS : Développement rapide et responsive  
-- Preline UI : Composants intégrés (modales, boutons…)  
-- Lucide : Icônes  
+1. Base de données : MySQL
+2. Architecture : N-Tiers. 
+3. Framework : Laravel 12  
+4. architecture : MVC
+5. moteur de vues : Blade
+6. Ajax 
+7. Upload image 
+8. laravel multilangue
+9. Vite
+10. Preline UI library 
+11. luicide library 
 
----
-## Back-End et Architecture
-- Framework : Laravel 12  
-- Langage : PHP 8.2
-- Base de données : MySQL
-- Architecture N-Tiers :  
-  - Controller : Requêtes HTTP  
-  - Service : Logique métier  
-  - Model : Base de données  
 
----
-
-## Fonctionnalités
-- AJAX : Interactions dynamiques (ex: modales, mise à jour de progression) sans rechargement  
-- Téléchargement de fichiers : Possibilité de joindre des fichiers/images aux objectifs  
-- Support Multi-langue : Français et Anglais (fr, en)  
 
 
 ---
