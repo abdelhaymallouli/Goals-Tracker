@@ -7,7 +7,7 @@ header: '📊 Goals Tracker Project'
 footer: 'Réalisé par Abdelhay Mallouli'
 ---
 
-# Goals Tracker Website
+# Goals Tracker Website (Goals / Categories)
 
 **Réalisé par :**  
 MALLOULI Abdelhay    
