@@ -5,6 +5,17 @@ paginate: true
 backgroundColor: #fff
 header: '📊 Goals Tracker Project'
 footer: 'Réalisé par Abdelhay Mallouli'
+style: |
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
 ---
 
 # Projet technique 
@@ -24,7 +35,7 @@ M. ESSARRAJ Fouad
 - Méthodologie **2TUP** : Fonctionnel / Technique / Réalisation  
 - Préparation pour **démonstration live**  
 
-<img src="imgs/2tup.png" alt="2TUP Methodology" style="width:50%; margin-top:10px;" />
+<img src="imgs/2tup.png" alt="2TUP Methodology" />
 
 ---
 
@@ -51,12 +62,22 @@ M. ESSARRAJ Fouad
 
 # Analyse Fonctionnelle
 
-## cas d'utilisation public 
+## cas d'utilisation  
 
-<img src="imgs/cas Dutilisation/public.png" alt="cas d'utilisation public" style="width:50%; margin-top:10px;" />
+<img src="imgs/cas Dutilisation/cas.png" alt="cas d'utilisation public" style="width:50%; margin-top:10px;" />
 
----
-## cas d'utilisation admin
 
-<img src="imgs/cas Dutilisation/admin.png" alt="cas d'utilisation admin" style="width:50%; margin-top:10px;" />
 
+--- 
+# Conception
+
+## Diagramme de Classes
+
+<div style="text-align: center;">
+  <img src="imgs/diagram class.png" alt="diagram class" style="max-height: 400px; width: auto; object-fit: contain;" />
+</div>
+--- 
+
+# Sujet - Live coding
+- Un bouton “Ajouter” qui ouvre une modale pour créer un nouvel élément.
+- Une barre de recherche filtrant des éléments par titre.

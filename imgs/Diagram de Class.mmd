@@ -1,0 +1,27 @@
+classDiagram
+    class User {
+        +int id
+        +string name
+        +string email
+        +string password
+    }
+
+    class Goal {
+        +int id
+        +string title
+        +string description
+        +string status
+        +int progress
+        +int user_id
+    }
+
+    class Category {
+        +int id
+        +string name
+    }
+
+
+
+    %% Relations
+    User "1" --> "0..*" Goal : 
+    Goal "0..*" --> "0..*" Category :  
