@@ -1,5 +1,6 @@
 ---
 marp: true
+mermaid: true
 theme: default
 paginate: true
 backgroundColor: #fff
@@ -16,68 +17,106 @@ style: |
     margin: 0 auto;
     border-radius: 8px;
   }
+
 ---
 
-# Projet technique 
+# Projet technique
+
 ## Goals Tracker Website (Suivi des Objectifs)
 
-**Réalisé par :**  
-MALLOULI Abdelhay    
+**Réalisé par :**
+**MALLOULI Abdelhay**
 
-**Encadré par :**  
-M. ESSARRAJ Fouad
+**Encadré par :**
+**M. ESSARRAJ Fouad**
 
 ---
 
 # Contexte du projet
-- Projet pour appliquer les connaissances acquises  
-- Suivi des objectifs personnels ou professionnels  
-- Méthodologie **2TUP** : Fonctionnel / Technique / Réalisation  
-- Préparation pour **démonstration live**  
 
-<img src="imgs/2tup.png" alt="2TUP Methodology" />
+* Projet pour appliquer les connaissances acquises
+* Suivi des objectifs personnels ou professionnels
+* Méthodologie **2TUP** :
+
+  * Fonctionnelle
+  * Technique
+  * Réalisation
+* Préparation pour une **démonstration live**
+---
+<img src="imgs/2tup.png" alt="2TUP Methodology" style="width:45%;" />
 
 ---
 
 # Analyse technique
 
-# Les technologies à utiliser
+## Technologies utilisées
 
-1. Base de données : MySQL
-2. Architecture : N-Tiers. 
-3. Framework : Laravel 12  
-4. architecture : MVC
-5. moteur de vues : Blade
-6. Ajax 
-7. Upload image 
-8. laravel multilangue
-9. Vite
-10. Preline UI library 
-11. luicide library 
-
-
-
+1. Base de données : **MySQL**
+2. Architecture : **N-Tiers**
+3. Framework : **Laravel 12**
+4. Architecture logicielle : **MVC**
+5. Moteur de vues : **Blade**
+6. **AJAX**
+7. Upload d’images
+8. **Laravel Multilangue**
+---
+9. **Vite**
+10. **Preline UI Library**
+11. **Lucide Icons Library**
 
 ---
 
 # Analyse Fonctionnelle
 
-## cas d'utilisation  
+## Cas d'utilisation
 
-<img src="imgs/cas Dutilisation/cas.png" alt="cas d'utilisation public" style="width:50%; margin-top:10px;" />
+<img src="imgs/cas Dutilisation/cas.png" alt="Cas d'utilisation public" style="width:50%; margin-top:10px;" />
 
+---
 
-
---- 
 # Conception
 
 ## Diagramme de Classes
 
-<div style="text-align: center;">
-  <img src="imgs/diagram class.png" alt="diagram class" style="max-height: 400px; width: auto; object-fit: contain;" />
-</div>
---- 
+```mermaid
+classDiagram
+    class User {
+        +int id
+        +string name
+        +string email
+        +string password
+    }
 
-# Sujet - Live coding
-- Un bouton “Ajouter” qui ouvre une modale pour créer un nouvel élément.
-- Une barre de recherche filtrant des éléments par titre.
+    class Goal {
+        +int id
+        +string title
+        +string description
+        +string status
+        +int progress
+        +int user_id
+    }
+
+    class Category {
+        +int id
+        +string name
+    }
+
+    class GoalCategory {
+        +int goal_id
+        +int category_id
+    }
+
+    User "1" --> "0..*" Goal : crée
+    Goal "0..*" -- "0..*" Category : classé_dans
+    GoalCategory "N" --> "1" Goal
+    GoalCategory "N" --> "1" Category
+```
+
+---
+
+# Sujet – Live Coding
+
+* Bouton **« Ajouter »** ouvrant une **modale** pour créer un nouvel objectif
+* **Barre de recherche** filtrant les objectifs par **titre**
+* Mise à jour dynamique avec **AJAX**
+
