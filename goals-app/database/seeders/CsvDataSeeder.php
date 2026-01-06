@@ -37,16 +37,26 @@ class CsvDataSeeder extends Seeder
         fclose($file);
     }
 
-    private function importGoals() {
-        $file = fopen(database_path('seeders/csv/goals.csv'), 'r');
-        fgetcsv($file); // Sauter la ligne d'en-tête
+private function importGoals()
+    {
+        $filePath = database_path('seeders/csv/goals.csv');
+        
+        if (!file_exists($filePath)) {
+            $this->command->error("Fichier CSV introuvable à l'adresse : $filePath");
+            return;
+        }
+
+        $file = fopen($filePath, 'r');
+        fgetcsv($file); // Sauter l'entête
+
         while (($data = fgetcsv($file)) !== FALSE) {
             Goal::create([
-                'user_id'     => $data[0],
-                'title'       => $data[1],
-                'description' => $data[2],
-                'status'      => $data[3],
-                'progress'    => $data[4],
+                'user_id'     => trim($data[0]),
+                'title'       => trim($data[1]),
+                'description' => trim($data[2]),
+                'status'      => trim($data[3]),
+                'progress'    => trim($data[4]),
+                'image'       => trim($data[5]),
             ]);
         }
         fclose($file);
