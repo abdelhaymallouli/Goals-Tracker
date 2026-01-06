@@ -49,6 +49,7 @@ style: |
 # watterfall 
 
 <img src="imgs/Waterfall_model.png" alt="Watterfall Methodology" style="width:45%;" />
+
 ---
 
 # Analyse technique
