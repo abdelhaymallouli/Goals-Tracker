@@ -101,15 +101,10 @@ classDiagram
         +string name
     }
 
-    class GoalCategory {
-        +int goal_id
-        +int category_id
-    }
+
 
     User "1" --> "0..*" Goal : crée
-    Goal "0..*" -- "0..*" Category : classé_dans
-    GoalCategory "N" --> "1" Goal
-    GoalCategory "N" --> "1" Category
+    Goal "n..n" -- "n..n" Category : 
 ```
 
 ---
