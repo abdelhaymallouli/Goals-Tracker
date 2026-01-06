@@ -104,7 +104,8 @@ classDiagram
 
 
     User "1" --> "0..*" Goal : crée
-    Goal "n..n" -- "n..n" Category : appartient à
+    Goal "0..*" -- "0..*" Category : appartient à
+
 ```
 
 ---
