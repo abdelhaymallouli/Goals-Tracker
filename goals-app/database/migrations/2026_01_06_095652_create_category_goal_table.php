@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('goals', function (Blueprint $table) {
-        $table->id();
-        $table->string('description');
-        $table->date('deadline');
-        $table->timestamps();
+        Schema::create('category_goal', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('goal_id')->constrained()->onDelete('cascade');
+    $table->foreignId('category_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('goals');
+        Schema::dropIfExists('category_goal');
     }
 };
