@@ -103,7 +103,7 @@ classDiagram
 
 
 
-    User "1" --> "0..*" Goal : crée
+    User "1" --> "0..*" Goal : 
     Goal "n..n" -- "n..n" Category : 
 ```
 
