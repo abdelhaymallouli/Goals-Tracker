@@ -46,6 +46,10 @@ style: |
 <img src="imgs/2tup.png" alt="2TUP Methodology" style="width:45%;" />
 
 ---
+# watterfall 
+
+<img src="imgs/Waterfall_model.png" alt="Watterfall Methodology" style="width:45%;" />
+---
 
 # Analyse technique
 
@@ -93,6 +97,7 @@ classDiagram
         +string description
         +string status
         +int progress
+        +string image
         +int user_id
     }
 
