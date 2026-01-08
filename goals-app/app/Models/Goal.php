@@ -14,7 +14,6 @@ class Goal extends Model
         'title',
         'description',
         'status',
-        'progress',
         'image',
         'user_id',
     ];

@@ -1,5 +1,4 @@
-user_id,title,description,status,progress,image
-1,Apprendre Laravel 12,Maîtriser les nouveautés et le routing,in_progress,40,laravel.png
-1,Créer un Portfolio,Utiliser Tailwind CSS et Vite,todo,0,portfolio.png
-1,Marathon 2026,Entraînement hebdomadaire de 10km,in_progress,20,marathon.png
-1,Épargne Voyage,Économiser pour le voyage au Japon,completed,100,japan.png
+user_id,title,description,status,image,categories
+1,Apprendre Laravel 12,Maîtriser les nouveautés,in_progress,laravel.png,"Développement Web,Design UI/UX"
+1,Créer un Portfolio,Utiliser Tailwind CSS,todo,portfolio.png,"Développement Web,Finance"
+1,Marathon 2026,Entraînement 10km,in_progress,marathon.png,"Sport & Santé"
