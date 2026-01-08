@@ -2,32 +2,48 @@
 namespace App\Services;
 
 use App\Models\Goal;
+use Illuminate\Support\Facades\Storage;
 
 class GoalService
 {
-    //recherche and filter les objetics
-    public function getFilteredGoals(?string $searchTerm)
+    /**
+     * Logique de filtrage combinée (Recherche + Catégorie).
+     */
+    public function getFilteredGoals(?string $search, ?int $categoryId)
     {
         return Goal::query()
-            ->when($searchTerm, function ($query) use ($searchTerm) {
-                $query->where('title', 'like', '%' . $searchTerm . '%');
+            ->with('categories') // Optimisation (Eager Loading)
+            
+            // Filtre 1 : Recherche par titre
+            ->when($search, function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
             })
-            ->with('categories')
-            ->latest()           
+            
+            // Filtre 2 : Filtrage par catégorie via la table pivot
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->whereHas('categories', function ($q) use ($categoryId) {
+                    $q->where('categories.id', $categoryId);
+                });
+            })
+            
+            ->latest()
             ->get();
     }
 
+    /**
+     * Logique de création (utilisée lors du Live Coding).
+     */
     public function storeGoal(array $data)
     {
-        // Gestion de l'image locale via UploadedFile
+        // Traitement de l'image si présente
         if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
             $data['image'] = $data['image']->store('goals', 'public');
         }
 
-        // Création sans contrainte d'user_id
+        $data['user_id'] = 1; // ID par défaut car pas d'Auth
         $goal = Goal::create($data);
 
-        // Association des catégories
+        // Synchronisation des multi-catégories
         if (isset($data['category_ids'])) {
             $goal->categories()->sync($data['category_ids']);
         }

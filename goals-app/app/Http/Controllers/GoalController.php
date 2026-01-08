@@ -1,36 +1,54 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Goal;
+use App\Services\GoalService;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class GoalController extends Controller
 {
-    // READ
-    public function index()
+    protected $goalService;
+    protected $categoryService;
+
+    // Injection des deux services dans le constructeur
+    public function __construct(GoalService $goalService, CategoryService $categoryService)
     {
-        $goals = Goal::all();
-        return view('goals.index', compact('goals'));
+        $this->goalService = $goalService;
+        $this->categoryService = $categoryService;
     }
 
-    // CREATE
-    public function store(Request $request)
+    /**
+     * Affiche la liste des objectifs et gère les filtres AJAX.
+     */
+    public function index(Request $request)
     {
-        $request->validate([
-            'description' => 'required',
-            'deadline' => 'required|date'
-        ]);
+        // 1. On récupère toutes les catégories pour remplir le menu de filtrage (via CategoryService)
+        $categories = $this->categoryService->getAllCategories();
 
-        Goal::create($request->all());
+        // 2. On récupère les objectifs filtrés (via GoalService)
+        // On récupère 'search' et 'category_id' depuis l'URL (ex: ?search=laravel&category_id=1)
+        $goals = $this->goalService->getFilteredGoals(
+            $request->query('search'),
+            $request->query('category_id')
+        );
 
-        return redirect()->back();
+        // 3. Si c'est une requête AJAX (Live Coding Search/Filter)
+        // On retourne uniquement le morceau de code HTML de la liste
+        if ($request->ajax()) {
+            return view('public.goals.partials._list', compact('goals'))->render();
+        }
+
+        // 4. Chargement initial de la page complète
+        return view('public.index', compact('goals', 'categories'));
     }
 
-    // DELETE
-    public function destroy(Goal $goal)
-    {
-        $goal->delete();
-        return redirect()->back();
-    }
+    public function show($id)
+{
+    // On récupère l'objectif avec ses catégories
+    // Note: Assurez-vous que votre GoalService possède bien une méthode pour trouver par ID
+    $goal = \App\Models\Goal::with('categories')->findOrFail($id);
+
+    // On retourne la vue située dans le dossier public
+    return view('public.show', compact('goal'));
+}
 }
