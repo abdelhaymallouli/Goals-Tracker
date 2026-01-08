@@ -1,53 +1,64 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Goal;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Database\Eloquent\Collection;
 
 class GoalService
 {
-    /**
-     * Logique de filtrage combinée (Recherche + Catégorie).
-     */
-    public function getFilteredGoals(?string $search, ?int $categoryId)
+    public function getAllGoals(): Collection
     {
-        return Goal::query()
-            ->with('categories') // Optimisation (Eager Loading)
-            
-            // Filtre 1 : Recherche par titre
-            ->when($search, function ($query) use ($search) {
-                $query->where('title', 'like', '%' . $search . '%');
-            })
-            
-            // Filtre 2 : Filtrage par catégorie via la table pivot
-            ->when($categoryId, function ($query) use ($categoryId) {
-                $query->whereHas('categories', function ($q) use ($categoryId) {
-                    $q->where('categories.id', $categoryId);
-                });
-            })
-            
-            ->latest()
-            ->get();
+        return Goal::with('categories')->latest()->get();
+    }
+
+    public function getGoalById(int $id): Goal
+    {
+        return Goal::with('categories')->findOrFail($id);
     }
 
     /**
-     * Logique de création (utilisée lors du Live Coding).
+     * Crée ou met à jour un objectif avec gestion d'image et catégories.
      */
-    public function storeGoal(array $data)
+    public function persistGoal(array $data, ?int $id = null): Goal
     {
-        // Traitement de l'image si présente
-        if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
-            $data['image'] = $data['image']->store('goals', 'public');
+        $goal = $id ? Goal::findOrFail($id) : new Goal();
+
+        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+            $data['image'] = $this->handleImageStorage($data['image'], $goal->image);
         }
 
-        $data['user_id'] = 1; // ID par défaut car pas d'Auth
-        $goal = Goal::create($data);
+        $goal->fill($data);
+        
+        if (!$id) {
+            $goal->user_id = auth()->id() ?? 1; // Défaut pour le développement
+        }
 
-        // Synchronisation des multi-catégories
+        $goal->save();
+
         if (isset($data['category_ids'])) {
             $goal->categories()->sync($data['category_ids']);
         }
 
-        return $goal;
+        return $goal->load('categories');
+    }
+
+    public function removeGoal(int $id): bool
+    {
+        $goal = Goal::findOrFail($id);
+        if ($goal->image) {
+            Storage::disk('public')->delete($goal->image);
+        }
+        return $goal->delete();
+    }
+
+    private function handleImageStorage(UploadedFile $file, ?string $oldPath): string
+    {
+        if ($oldPath) {
+            Storage::disk('public')->delete($oldPath);
+        }
+        return $file->store('goals', 'public');
     }
 }
